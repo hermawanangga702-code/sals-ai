@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SALS AI</title>
+</head>
+<body style="background:black;color:white;text-align:center">
+<h1>SALS AI</h1>
+
+<input id="nilai" placeholder="Nilai"><br><br>
+<input id="waktu" placeholder="Waktu"><br><br>
+
+<button onclick="kirim()">Analisis</button>
+
+<h3 id="hasil"></h3>
+
+<script>
+function kirim(){
+  fetch('/api/predict',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      nilai: document.getElementById('nilai').value,
+      waktu_belajar: document.getElementById('waktu').value
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    document.getElementById('hasil').innerHTML =
+      data.level + " - " + data.rekomendasi;
+  })
+}
+</script>
+
+</body>
+</html>
+first file
